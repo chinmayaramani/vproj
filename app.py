@@ -5,14 +5,14 @@ import random
 # CONFIG
 # ----------------------------
 st.set_page_config(
-    page_title="For Nikku 💘",
+    page_title="For Pooku 💘",
     page_icon="💖",
     layout="centered",
 )
 
 # ✅ Personalize here
 HER_FULL_NAME = "Nikita Singh"
-HER_NICKNAME = "Nikku"
+HER_NICKNAME = "Pooku"
 YOUR_NAME = "Chinmaya"
 
 # Optional: add a simple passcode (set to "" to disable)
@@ -111,7 +111,7 @@ if "accepted" not in st.session_state:
 # ----------------------------
 st.markdown(f"<div class='big-title'>Hey {HER_NICKNAME} 🎀</div>", unsafe_allow_html=True)
 st.markdown(
-    "<div class='sub'>From Canada 🇨🇦 to you — with love (and a little bit of coding).</div>",
+    "<div class='sub'>From My Heart to You — with Love (and a little bit of coding).</div>",
     unsafe_allow_html=True,
 )
 
@@ -180,7 +180,7 @@ else:
             "Nope. Wrong choice 😌",
             "Be serious 😐💗",
             "I’ll pretend I didn’t see that 🙃",
-            "Nikku… don’t play with me 😭💘",
+            "Pooks… don’t play with me 😭💘",
         ]
         st.warning(f"{random.choice(responses)}  (Attempts: {st.session_state.no_count})")
 
