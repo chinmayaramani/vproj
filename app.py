@@ -1,316 +1,225 @@
 import streamlit as st
 import random
 
-# =========================
+# ----------------------------
 # CONFIG
-# =========================
-st.set_page_config(page_title="For Nikku", page_icon="💗", layout="centered")
+# ----------------------------
+st.set_page_config(
+    page_title="For Nikku 💘",
+    page_icon="💖",
+    layout="centered",
+)
 
+# ✅ Personalize here
 HER_FULL_NAME = "Nikita Singh"
 HER_NICKNAME = "Nikku"
 YOUR_NAME = "Chinmaya"
 
-# Optional lock (leave "" to disable)
-SECRET_CODE = ""  # e.g. "1402"
+# Optional: add a simple passcode (set to "" to disable)
+SECRET_CODE = ""  # e.g., "1402" or "nikku"  (leave "" to skip lock screen)
 
-# =========================
-# STYLES (Luxury + clean)
-# =========================
+# ----------------------------
+# STYLING (Luxury Barbie Pink + floating hearts)
+# ----------------------------
 st.markdown(
     """
 <style>
-/* --- App background --- */
+/* page background */
 [data-testid="stAppViewContainer"]{
-  background:
-    radial-gradient(1200px 600px at 15% 10%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%),
-    radial-gradient(900px 500px at 85% 35%, rgba(255,220,235,0.55), rgba(255,255,255,0) 60%),
-    linear-gradient(135deg, #ffd1dc 0%, #ffb6c9 45%, #f7a6c7 100%);
+  background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.45), transparent 35%),
+              linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 45%, #f7a6c7 100%);
 }
-[data-testid="stHeader"]{ background: transparent; }
-[data-testid="stToolbar"]{ right: 0.6rem; }
+[data-testid="stHeader"]{ background: rgba(0,0,0,0); }
 
-/* --- Layout container --- */
-.wrap{
-  max-width: 860px;
-  margin: 0 auto;
-  padding: 14px 8px 40px;
-  position: relative;
-}
+.big-title { font-size: 44px; font-weight: 900; text-align: center; margin-top: 8px; }
+.sub { font-size: 16px; text-align: center; opacity: 0.95; margin-bottom: 14px; }
 
-/* --- Floating blur blobs (subtle motion) --- */
-@keyframes drift1 { 0%{transform:translate(0,0)} 50%{transform:translate(18px,-12px)} 100%{transform:translate(0,0)} }
-@keyframes drift2 { 0%{transform:translate(0,0)} 50%{transform:translate(-16px,10px)} 100%{transform:translate(0,0)} }
-.blob{
-  position: fixed;
-  filter: blur(40px);
-  opacity: 0.45;
-  z-index: 0;
-  pointer-events: none;
-}
-.blob.one{ width: 320px; height: 320px; left: -90px; top: 120px; background: #ffffff; animation: drift1 10s ease-in-out infinite; }
-.blob.two{ width: 360px; height: 360px; right: -120px; top: 220px; background: #ffe3ef; animation: drift2 11s ease-in-out infinite; }
-.blob.three{ width: 300px; height: 300px; left: 35%; bottom: -120px; background: #ffd1dc; animation: drift1 12s ease-in-out infinite; }
-
-/* --- Typography --- */
-.kicker{
-  text-align:center;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  opacity: 0.85;
-  margin: 0;
-}
-.hero{
-  text-align:center;
-  font-weight: 900;
-  font-size: 54px;
-  line-height: 1.02;
-  margin: 10px 0 6px;
-}
-.subhero{
-  text-align:center;
-  font-size: 16px;
-  opacity: 0.92;
-  margin: 0 0 18px;
-}
-
-/* --- Glass cards --- */
-.card{
-  background: rgba(255,255,255,0.22);
-  border: 1px solid rgba(255,255,255,0.42);
-  border-radius: 22px;
-  padding: 18px 18px;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.10);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 1;
-}
-.card.soft{
+.card {
   background: rgba(255,255,255,0.18);
-}
-.card + .card{ margin-top: 14px; }
-
-.hr{
-  height:1px;
-  background: rgba(255,255,255,0.45);
-  border: none;
-  margin: 14px 0;
-}
-
-.center{ text-align:center; }
-.muted{ opacity: 0.82; }
-.small{ font-size: 13px; opacity: 0.82; }
-
-/* --- "Chip" tags --- */
-.chips{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
-.chip{
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.25);
-  border: 1px solid rgba(255,255,255,0.42);
-  font-size: 13px;
-  font-weight: 650;
+  border: 1px solid rgba(255,255,255,0.35);
+  padding: 18px 18px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin-top: 14px;
 }
 
-/* --- Buttons --- */
-button[kind="primary"], button[kind="secondary"]{
-  border-radius: 16px !important;
-  padding: 0.86rem 1rem !important;
-  font-weight: 800 !important;
-  border: 1px solid rgba(255,255,255,0.5) !important;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.10) !important;
-}
-button[kind="primary"]{ background: rgba(255,255,255,0.35) !important; }
-button[kind="secondary"]{ background: rgba(255,255,255,0.18) !important; }
+.center { text-align: center; }
+.small { font-size: 13px; opacity: 0.85; }
+hr { border: none; height: 1px; background: rgba(255,255,255,0.35); margin: 12px 0; }
 
-/* --- Mobile tweaks --- */
-@media (max-width: 540px){
-  .hero{ font-size: 42px; }
-  .subhero{ font-size: 15px; }
+/* floating hearts */
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1); opacity: 0; }
+  10%  { opacity: 0.35; }
+  100% { transform: translateY(-120vh) scale(1.25); opacity: 0; }
+}
+.heart {
+  position: fixed;
+  bottom: -20px;
+  z-index: 0;
+  font-size: 18px;
+  color: rgba(255,255,255,0.55);
+  animation: floatUp linear infinite;
+  pointer-events: none;
 }
 </style>
 
-<div class="blob one"></div>
-<div class="blob two"></div>
-<div class="blob three"></div>
+<div class="heart" style="left:10%; animation-duration: 12s; animation-delay: 0s;">💗</div>
+<div class="heart" style="left:22%; animation-duration: 10s; animation-delay: 1s;">💖</div>
+<div class="heart" style="left:35%; animation-duration: 14s; animation-delay: 2s;">💞</div>
+<div class="heart" style="left:50%; animation-duration: 11s; animation-delay: 0.5s;">💘</div>
+<div class="heart" style="left:63%; animation-duration: 13s; animation-delay: 1.5s;">💕</div>
+<div class="heart" style="left:78%; animation-duration: 9s;  animation-delay: 2.2s;">💓</div>
+<div class="heart" style="left:90%; animation-duration: 15s; animation-delay: 0.2s;">💗</div>
 """,
     unsafe_allow_html=True,
 )
 
-# =========================
-# OPTIONAL LOCK
-# =========================
+# ----------------------------
+# OPTIONAL LOCK SCREEN
+# ----------------------------
 if "unlocked" not in st.session_state:
     st.session_state.unlocked = False
 
 if SECRET_CODE.strip() and not st.session_state.unlocked:
-    st.markdown("<div class='wrap'>", unsafe_allow_html=True)
-    st.markdown("<p class='kicker'>PRIVATE LINK</p>", unsafe_allow_html=True)
-    st.markdown(f"<div class='hero'>For {HER_NICKNAME}</div>", unsafe_allow_html=True)
-    st.markdown("<p class='subhero'>Enter the code and open it.</p>", unsafe_allow_html=True)
+    st.markdown(f"<div class='big-title'>🔒 For {HER_NICKNAME} only</div>", unsafe_allow_html=True)
+    st.markdown("<div class='sub'>Enter the secret code to open this page 💖</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='card center'>", unsafe_allow_html=True)
-    code = st.text_input("Secret code", type="password", placeholder="hint: something meaningful…")
-    if st.button("Unlock", use_container_width=True):
-        if code.strip() == SECRET_CODE.strip():
-            st.session_state.unlocked = True
-            st.rerun()
-        else:
-            st.error("Wrong code. Try again.")
-    st.markdown("</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+    code = st.text_input("Secret code", type="password", placeholder="Hint: something meaningful to us…")
+    c1, c2, c3 = st.columns([1, 1, 1])
+    with c2:
+        if st.button("Unlock 💘", use_container_width=True):
+            if code.strip() == SECRET_CODE.strip():
+                st.session_state.unlocked = True
+                st.rerun()
+            else:
+                st.error("Nope 😭 Try again, pookie.")
     st.stop()
 
-# =========================
-# STATE
-# =========================
-if "accepted" not in st.session_state:
-    st.session_state.accepted = False
+# ----------------------------
+# SESSION STATE
+# ----------------------------
 if "no_count" not in st.session_state:
     st.session_state.no_count = 0
+if "accepted" not in st.session_state:
+    st.session_state.accepted = False
 
-# =========================
-# HERO
-# =========================
-st.markdown("<div class='wrap'>", unsafe_allow_html=True)
-st.markdown("<p class='kicker'>MADE IN CANADA • FOR INDIA</p>", unsafe_allow_html=True)
-st.markdown(f"<div class='hero'>Hey {HER_NICKNAME}.</div>", unsafe_allow_html=True)
+# ----------------------------
+# HEADER
+# ----------------------------
+st.markdown(f"<div class='big-title'>Hey {HER_NICKNAME} 🎀</div>", unsafe_allow_html=True)
 st.markdown(
-    "<p class='subhero'>Luxury pink, long-distance proof, and one simple question.</p>",
+    "<div class='sub'>From Canada 🇨🇦 to you — with love (and a little bit of coding).</div>",
     unsafe_allow_html=True,
 )
 
-# =========================
-# QUESTION CARD
-# =========================
 st.markdown(
     f"""
 <div class="card center">
-  <div style="font-size:20px; font-weight:900; margin-bottom:6px;">
-    Will you be my Valentine?
-  </div>
-  <div class="muted">No dramatic speech. Just… you and me.</div>
-  <div class="chips">
-    <div class="chip">NIFT Gandhinagar energy</div>
-    <div class="chip">Café dates</div>
-    <div class="chip">Bali dream</div>
-    <div class="chip">3 years strong</div>
-  </div>
+  <h2 style="margin:0;">Will you be my Valentine? 💘</h2>
+  <div class="small" style="margin-top:6px;">Choose wisely, miss baddie 😌</div>
 </div>
 """,
     unsafe_allow_html=True,
 )
 
-# Buttons
-c1, c2 = st.columns(2, gap="large")
-with c1:
-    yes = st.button("Yes", use_container_width=True, type="primary")
-with c2:
-    no = st.button("No", use_container_width=True, type="secondary")
+# ----------------------------
+# BUTTONS
+# ----------------------------
+col1, col2 = st.columns(2, gap="large")
+with col1:
+    yes = st.button("YES 💖", use_container_width=True)
+with col2:
+    no = st.button("NO 🙃", use_container_width=True)
 
 if yes:
     st.session_state.accepted = True
+
 if no and not st.session_state.accepted:
     st.session_state.no_count += 1
 
-# =========================
-# RESULTS
-# =========================
+# ----------------------------
+# MAIN LOGIC
+# ----------------------------
 if st.session_state.accepted:
     st.balloons()
+    st.success("YAYYYY 💘💘💘")
 
     st.markdown(
         f"""
 <div class="card">
-  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px; flex-wrap:wrap;">
-    <div style="flex:1; min-width:220px;">
-      <div style="font-size:18px; font-weight:900;">Okay. Good choice.</div>
-      <div class="small">This page is officially yours now.</div>
-    </div>
-    <div class="chip">Happy Valentine’s Day</div>
-  </div>
-
-  <hr class="hr"/>
-
-  <div style="font-size:16px; line-height:1.7;">
-    <p>
-      People see the baddie vibe — the “she’s rude” first impression, the Aishwarya Rai type elegance.
-      But I know the version that’s actually soft and kind, just selective.
-    </p>
-
-    <p>
-      We’ve done three years of long distance — Canada and India, time zones, calls, and those summer visits I wait for all year.
-      And still, you’re the person I choose the easiest.
-    </p>
-
-    <p>
-      I loved seeing you talk about Bali. One day you’ll get that beach farmhouse.
-      When you do, I’m showing up — not as a visitor, as your person.
-    </p>
-
-    <p>
-      Next time we’re together: a proper café date, pink outfit, sunflowers, and tiramisu from Baked by Nini’s.
-      No “we’ll see”. It’s happening.
-    </p>
-
-    <p style="margin-top:14px;">
-      <b>{HER_FULL_NAME}</b> — will you be my Valentine?
-    </p>
-    <p class="small">— {YOUR_NAME}</p>
-  </div>
+  <h2 style="margin-top:0;">For {HER_FULL_NAME} — but only my {HER_NICKNAME} 💖</h2>
+  <p>People see the <b>Aishwarya Rai</b> vibe… the baddie aura… the “don’t mess with me” look.</p>
+  <p>But I know the girl who’s actually <b>soft</b>, kind-hearted, and full of love.</p>
+  <hr/>
+  <p>From NIFT Gandhinagar fashion dreams to your fancy cafés and cute restaurants…</p>
+  <p>From Bali memories to pink sunsets… you make everything feel beautiful.</p>
+  <p>Three years of long distance. Different countries. Summer reunions I wait all year for.</p>
+  <p>But not a single day I stopped choosing you.</p>
+  <p><b>You’re my pookie, sweetie, babu, cutie — my everything.</b></p>
+  <p>And when we finally get that Bali farmhouse by the beach… I’m still choosing you there too 🌊✨</p>
+  <p style="font-size:18px;"><b>So {HER_NICKNAME}… will you be my Valentine? 💘</b></p>
+  <p class="small">— Love, {YOUR_NAME}</p>
 </div>
 """,
         unsafe_allow_html=True,
     )
 
-    # “Lookbook” section (premium feel; replace text with your own)
     st.markdown(
         """
-<div class="card soft">
-  <div style="font-size:18px; font-weight:900;">A small “lookbook” of us</div>
-  <div class="small">Not photos (yet). Just the vibe.</div>
-  <hr class="hr"/>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-    <div class="card soft" style="margin:0; padding:14px;">
-      <div style="font-weight:850;">The café version of you</div>
-      <div class="small">Fancy, pink, and judging the menu like a designer.</div>
-    </div>
-    <div class="card soft" style="margin:0; padding:14px;">
-      <div style="font-weight:850;">The soft version of you</div>
-      <div class="small">Only I get this one. That’s my flex.</div>
-    </div>
-    <div class="card soft" style="margin:0; padding:14px;">
-      <div style="font-weight:850;">Bali dream</div>
-      <div class="small">Beach farmhouse. Golden hour. You winning at life.</div>
-    </div>
-    <div class="card soft" style="margin:0; padding:14px;">
-      <div style="font-weight:850;">Us, long distance</div>
-      <div class="small">Still solid. Still ours. Still growing.</div>
-    </div>
-  </div>
+<div class="card">
+  <h3 style="margin-top:0;">Things that remind me of you 💗</h3>
+  <ul>
+    <li><b>Pink</b> everything 🎀</li>
+    <li><b>Sunflowers</b> 🌻</li>
+    <li>Fancy outfits + main character energy ✨</li>
+    <li>Beautiful cafés & restaurants ☕🍽️</li>
+    <li>Bali dreams and beach sunsets 🌊</li>
+    <li>Tiramisu dates (Baked by Nini’s) 🍰</li>
+  </ul>
 </div>
 """,
         unsafe_allow_html=True,
     )
+
+    st.markdown(
+        """
+<div class="card">
+  <h3 style="margin-top:0;">Tonight’s plan (LDR edition) 📞💞</h3>
+  <ul>
+    <li>A proper long call, no distractions</li>
+    <li>One cute “virtual date” vibe</li>
+    <li>And a promise: next time we meet, we’ll do a real café + dessert date 😌</li>
+  </ul>
+  <div class="small">P.S. You’re stuck with me now 😭💖</div>
+</div>
+""",
+        unsafe_allow_html=True,
+    )
+
+    # Optional: photo section (drop images in a folder and uncomment)
+    # st.markdown("<div class='card'><h3>Our Lookbook 📸</h3></div>", unsafe_allow_html=True)
+    # st.image(["photos/1.jpg", "photos/2.jpg", "photos/3.jpg"], caption=["", "", ""], use_container_width=True)
 
 else:
     if st.session_state.no_count > 0:
-        lines = [
-            "Be serious for a second.",
-            "Try again — without the attitude.",
-            "That’s not very Nikku-coded.",
-            "I’ll pretend I didn’t see that.",
-            "Okay, comedian. One more time.",
+        responses = [
+            "Hmm… that button is giving *fake attitude* 😤",
+            "Try again, miss baddie 😭",
+            "Nope. Wrong choice 😌",
+            "Be serious 😐💗",
+            "I’ll pretend I didn’t see that 🙃",
+            "Nikku… don’t play with me 😭💘",
         ]
-        st.markdown(
-            f"""
-<div class="card center">
-  <div style="font-size:16px; font-weight:900;">{random.choice(lines)}</div>
-  <div class="small">No attempts: {st.session_state.no_count}</div>
+        st.warning(f"{random.choice(responses)}  (Attempts: {st.session_state.no_count})")
+
+    st.markdown(
+        """
+<div class="center small" style="margin-top:10px;">
+  Hint: the correct answer is obvious 😌💖
 </div>
 """,
-            unsafe_allow_html=True,
-        )
-
-st.markdown("</div>", unsafe_allow_html=True)
+        unsafe_allow_html=True,
+    )
