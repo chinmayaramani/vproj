@@ -1,42 +1,32 @@
 import streamlit as st
 import random
 
-# ----------------------------
-# CONFIG
-# ----------------------------
-st.set_page_config(
-    page_title="For Nikku 💘",
-    page_icon="💖",
-    layout="centered",
-)
+st.set_page_config(page_title="For Nikku", page_icon="💗", layout="centered")
 
-# ✅ Personalize here
+# --- Personalize ---
 HER_FULL_NAME = "Nikita Singh"
 HER_NICKNAME = "Nikku"
 YOUR_NAME = "Chinmaya"
 
-# Optional: add a simple passcode (set to "" to disable)
-SECRET_CODE = ""  # e.g., "1402" or "nikku"  (leave "" to skip lock screen)
+# Optional: passcode lock. Leave empty "" to disable.
+SECRET_CODE = ""  # e.g. "1402"
 
-# ----------------------------
-# STYLING (Luxury Barbie Pink + floating hearts)
-# ----------------------------
-st.markdown(
-    """
+# --- Style (clean, not loud) ---
+st.markdown("""
 <style>
-/* page background */
 [data-testid="stAppViewContainer"]{
-  background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.45), transparent 35%),
-              linear-gradient(135deg, #ffd1dc 0%, #ffb6c1 45%, #f7a6c7 100%);
+  background: radial-gradient(circle at 18% 12%, rgba(255,255,255,0.55), transparent 35%),
+              linear-gradient(135deg, #ffd1dc 0%, #ffb8c9 50%, #f7a6c7 100%);
 }
 [data-testid="stHeader"]{ background: rgba(0,0,0,0); }
 
-.big-title { font-size: 44px; font-weight: 900; text-align: center; margin-top: 8px; }
-.sub { font-size: 16px; text-align: center; opacity: 0.95; margin-bottom: 14px; }
+.wrap { max-width: 720px; margin: 0 auto; }
+.title { font-size: 44px; font-weight: 900; text-align: center; margin: 8px 0 0 0; }
+.subtitle { font-size: 15px; text-align: center; opacity: 0.9; margin: 6px 0 18px 0; }
 
-.card {
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.35);
+.card{
+  background: rgba(255,255,255,0.20);
+  border: 1px solid rgba(255,255,255,0.38);
   padding: 18px 18px;
   border-radius: 18px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.08);
@@ -45,94 +35,62 @@ st.markdown(
   margin-top: 14px;
 }
 
-.center { text-align: center; }
 .small { font-size: 13px; opacity: 0.85; }
-hr { border: none; height: 1px; background: rgba(255,255,255,0.35); margin: 12px 0; }
+.center { text-align: center; }
+hr { border: none; height: 1px; background: rgba(255,255,255,0.35); margin: 14px 0; }
 
-/* floating hearts */
-@keyframes floatUp {
-  0%   { transform: translateY(0) scale(1); opacity: 0; }
-  10%  { opacity: 0.35; }
-  100% { transform: translateY(-120vh) scale(1.25); opacity: 0; }
-}
-.heart {
-  position: fixed;
-  bottom: -20px;
-  z-index: 0;
-  font-size: 18px;
-  color: rgba(255,255,255,0.55);
-  animation: floatUp linear infinite;
-  pointer-events: none;
+button[kind="primary"], button[kind="secondary"]{
+  border-radius: 14px !important;
+  padding: 0.8rem 1rem !important;
+  font-weight: 700 !important;
 }
 </style>
+""", unsafe_allow_html=True)
 
-<div class="heart" style="left:10%; animation-duration: 12s; animation-delay: 0s;">💗</div>
-<div class="heart" style="left:22%; animation-duration: 10s; animation-delay: 1s;">💖</div>
-<div class="heart" style="left:35%; animation-duration: 14s; animation-delay: 2s;">💞</div>
-<div class="heart" style="left:50%; animation-duration: 11s; animation-delay: 0.5s;">💘</div>
-<div class="heart" style="left:63%; animation-duration: 13s; animation-delay: 1.5s;">💕</div>
-<div class="heart" style="left:78%; animation-duration: 9s;  animation-delay: 2.2s;">💓</div>
-<div class="heart" style="left:90%; animation-duration: 15s; animation-delay: 0.2s;">💗</div>
-""",
-    unsafe_allow_html=True,
-)
-
-# ----------------------------
-# OPTIONAL LOCK SCREEN
-# ----------------------------
+# --- Optional lock screen ---
 if "unlocked" not in st.session_state:
     st.session_state.unlocked = False
 
 if SECRET_CODE.strip() and not st.session_state.unlocked:
-    st.markdown(f"<div class='big-title'>🔒 For {HER_NICKNAME} only</div>", unsafe_allow_html=True)
-    st.markdown("<div class='sub'>Enter the secret code to open this page 💖</div>", unsafe_allow_html=True)
+    st.markdown("<div class='wrap'>", unsafe_allow_html=True)
+    st.markdown(f"<div class='title'>For {HER_NICKNAME}</div>", unsafe_allow_html=True)
+    st.markdown("<div class='subtitle'>Enter the code.</div>", unsafe_allow_html=True)
 
-    code = st.text_input("Secret code", type="password", placeholder="Hint: something meaningful to us…")
-    c1, c2, c3 = st.columns([1, 1, 1])
-    with c2:
-        if st.button("Unlock 💘", use_container_width=True):
-            if code.strip() == SECRET_CODE.strip():
-                st.session_state.unlocked = True
-                st.rerun()
-            else:
-                st.error("Nope 😭 Try again, pookie.")
+    code = st.text_input("Secret code", type="password")
+    if st.button("Unlock", use_container_width=True):
+        if code.strip() == SECRET_CODE.strip():
+            st.session_state.unlocked = True
+            st.rerun()
+        else:
+            st.error("Wrong code. Try again.")
+    st.markdown("</div>", unsafe_allow_html=True)
     st.stop()
 
-# ----------------------------
-# SESSION STATE
-# ----------------------------
+# --- Session state ---
 if "no_count" not in st.session_state:
     st.session_state.no_count = 0
 if "accepted" not in st.session_state:
     st.session_state.accepted = False
 
-# ----------------------------
-# HEADER
-# ----------------------------
-st.markdown(f"<div class='big-title'>Hey {HER_NICKNAME} 🎀</div>", unsafe_allow_html=True)
-st.markdown(
-    "<div class='sub'>From Canada 🇨🇦 to you — with love (and a little bit of coding).</div>",
-    unsafe_allow_html=True,
-)
+# --- Header ---
+st.markdown("<div class='wrap'>", unsafe_allow_html=True)
+st.markdown(f"<div class='title'>Hey {HER_NICKNAME}</div>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Made in Canada, meant for you.</div>", unsafe_allow_html=True)
 
-st.markdown(
-    f"""
+# --- Main prompt card ---
+st.markdown(f"""
 <div class="card center">
-  <h2 style="margin:0;">Will you be my Valentine? 💘</h2>
-  <div class="small" style="margin-top:6px;">Choose wisely, miss baddie 😌</div>
+  <div style="font-size:20px; font-weight:800;">Will you be my Valentine?</div>
+  <div class="small" style="margin-top:6px;">Just answer honestly. No pressure.</div>
 </div>
-""",
-    unsafe_allow_html=True,
-)
+""", unsafe_allow_html=True)
 
-# ----------------------------
-# BUTTONS
-# ----------------------------
+# --- Buttons ---
 col1, col2 = st.columns(2, gap="large")
 with col1:
-    yes = st.button("YES 💖", use_container_width=True)
+    yes = st.button("Yes", use_container_width=True)
 with col2:
-    no = st.button("NO 🙃", use_container_width=True)
+    no = st.button("No", use_container_width=True)
 
 if yes:
     st.session_state.accepted = True
@@ -140,86 +98,46 @@ if yes:
 if no and not st.session_state.accepted:
     st.session_state.no_count += 1
 
-# ----------------------------
-# MAIN LOGIC
-# ----------------------------
+# --- Responses ---
 if st.session_state.accepted:
     st.balloons()
-    st.success("YAYYYY 💘💘💘")
-
-    st.markdown(
-        f"""
+    st.markdown(f"""
 <div class="card">
-  <h2 style="margin-top:0;">For {HER_FULL_NAME} — but only my {HER_NICKNAME} 💖</h2>
-  <p>People see the <b>Aishwarya Rai</b> vibe… the baddie aura… the “don’t mess with me” look.</p>
-  <p>But I know the girl who’s actually <b>soft</b>, kind-hearted, and full of love.</p>
+  <div style="font-size:18px; font-weight:800; margin-bottom:8px;">Okay, good.</div>
+
+  <p>Everyone thinks you’re the “scary” one — the Aishwarya Rai vibe, the baddie energy, the sharp face.
+  But I know you’re actually soft. You just don’t waste kindness on people who don’t deserve it.</p>
+
+  <p>We’ve done three years of long distance. Different countries, different time zones, and still…
+  you’ve stayed my favourite person. I wait all year for those summer days when I get to see you properly.</p>
+
+  <p>I keep thinking about your Bali trip and how you looked so happy there.
+  One day you’ll get that beach farmhouse. And when you do, I’m coming with you — no debate.</p>
+
   <hr/>
-  <p>From NIFT Gandhinagar fashion dreams to your fancy cafés and cute restaurants…</p>
-  <p>From Bali memories to pink sunsets… you make everything feel beautiful.</p>
-  <p>Three years of long distance. Different countries. Summer reunions I wait all year for.</p>
-  <p>But not a single day I stopped choosing you.</p>
-  <p><b>You’re my pookie, sweetie, babu, cutie — my everything.</b></p>
-  <p>And when we finally get that Bali farmhouse by the beach… I’m still choosing you there too 🌊✨</p>
-  <p style="font-size:18px;"><b>So {HER_NICKNAME}… will you be my Valentine? 💘</b></p>
-  <p class="small">— Love, {YOUR_NAME}</p>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
 
-    st.markdown(
-        """
-<div class="card">
-  <h3 style="margin-top:0;">Things that remind me of you 💗</h3>
-  <ul>
-    <li><b>Pink</b> everything 🎀</li>
-    <li><b>Sunflowers</b> 🌻</li>
-    <li>Fancy outfits + main character energy ✨</li>
-    <li>Beautiful cafés & restaurants ☕🍽️</li>
-    <li>Bali dreams and beach sunsets 🌊</li>
-    <li>Tiramisu dates (Baked by Nini’s) 🍰</li>
-  </ul>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
+  <p>Also, I owe you a proper date. Pink outfit. A nice café. Sunflowers.
+  And tiramisu — the one you like from Baked by Nini’s.</p>
 
-    st.markdown(
-        """
-<div class="card">
-  <h3 style="margin-top:0;">Tonight’s plan (LDR edition) 📞💞</h3>
-  <ul>
-    <li>A proper long call, no distractions</li>
-    <li>One cute “virtual date” vibe</li>
-    <li>And a promise: next time we meet, we’ll do a real café + dessert date 😌</li>
-  </ul>
-  <div class="small">P.S. You’re stuck with me now 😭💖</div>
+  <p style="margin-top:14px;"><b>Happy Valentine’s Day, {HER_NICKNAME}.</b></p>
+  <p class="small">— {YOUR_NAME}</p>
 </div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    # Optional: photo section (drop images in a folder and uncomment)
-    # st.markdown("<div class='card'><h3>Our Lookbook 📸</h3></div>", unsafe_allow_html=True)
-    # st.image(["photos/1.jpg", "photos/2.jpg", "photos/3.jpg"], caption=["", "", ""], use_container_width=True)
+""", unsafe_allow_html=True)
 
 else:
     if st.session_state.no_count > 0:
-        responses = [
-            "Hmm… that button is giving *fake attitude* 😤",
-            "Try again, miss baddie 😭",
-            "Nope. Wrong choice 😌",
-            "Be serious 😐💗",
-            "I’ll pretend I didn’t see that 🙃",
-            "Nikku… don’t play with me 😭💘",
+        soft_lines = [
+            "Are you sure?",
+            "I’ll pretend I didn’t see that.",
+            "Try again — without the attitude.",
+            "Okay, comedian.",
+            "Be nice to me.",
         ]
-        st.warning(f"{random.choice(responses)}  (Attempts: {st.session_state.no_count})")
-
-    st.markdown(
-        """
-<div class="center small" style="margin-top:10px;">
-  Hint: the correct answer is obvious 😌💖
+        st.markdown(f"""
+<div class="card center">
+  <div style="font-weight:800;">{random.choice(soft_lines)}</div>
+  <div class="small" style="margin-top:6px;">No clicks so far: {st.session_state.no_count}</div>
 </div>
-""",
-        unsafe_allow_html=True,
-    )
+""", unsafe_allow_html=True)
+
+st.markdown("</div>", unsafe_allow_html=True)
