@@ -155,13 +155,13 @@ if st.session_state.accepted:
   <p>But I know the girl who’s actually <b>soft</b>, kind-hearted, and full of love.</p>
   <hr/>
   <p>From NIFT Gandhinagar fashion dreams to your fancy cafés and cute restaurants…</p>
-  <p>From Bali memories to pink sunsets… you make everything feel beautiful.</p>
+  <p>From School memories to pretty sunsets… you make everything feel beautiful.</p>
   <p>Three years of long distance. Different countries. Summer reunions I wait all year for.</p>
   <p>But not a single day I stopped choosing you.</p>
-  <p><b>You’re my pookie, sweetie, babu, cutie — my everything.</b></p>
-  <p>And when we finally get that Bali farmhouse by the beach… I’m still choosing you there too 🌊✨</p>
+  <p><b>You’re my pookie, sweetie, babu, cutie, my everything.</b></p>
+  <p>And when we finally get that Bali farmhouse by the beach… I’m still choosing you there too </p>
   <p style="font-size:18px;"><b>So {HER_NICKNAME}… will you be my Valentine? 💘</b></p>
-  <p class="small">— Love, {YOUR_NAME}</p>
+  <p class="small">— Love, {YOUR_NAME} (Your Pooka)</p>
 </div>
 """,
         unsafe_allow_html=True,
@@ -177,9 +177,9 @@ else:
         responses = [
             "Hmm… that button is giving *fake attitude* 😤",
             "Try again, miss baddie 😭",
-            "Nope. Wrong choice 😌",
+            "Nope. Wrong choice ",
             "Be serious 😐💗",
-            "I’ll pretend I didn’t see that 🙃",
+            "I’ll pretend I didn’t see that ",
             "Pooks… don’t play with me 😭💘",
         ]
         st.warning(f"{random.choice(responses)}  (Attempts: {st.session_state.no_count})")
