@@ -36,6 +36,22 @@ html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, div {
     color: #2b2b2b !important;
 }
 
+/* Light themed buttons */
+.stButton > button {
+    background: rgba(255, 255, 255, 0.55) !important;
+    color: #2b2b2b !important;
+    border: 1px solid rgba(255,255,255,0.7) !important;
+    border-radius: 14px !important;
+    font-weight: 700 !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+    transition: all 0.2s ease-in-out !important;
+}
+
+.stButton > button:hover {
+    background: rgba(255, 255, 255, 0.75) !important;
+    transform: scale(1.03);
+}
+
 .big-title { font-size: 44px; font-weight: 900; text-align: center; margin-top: 8px; }
 .sub { font-size: 16px; text-align: center; opacity: 0.95; margin-bottom: 14px; }
 
