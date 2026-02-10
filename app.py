@@ -24,6 +24,8 @@ SECRET_CODE = ""  # e.g., "1402" or "nikku"  (leave "" to skip lock screen)
 st.markdown(
     """
 <style>
+/* Import luxury fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500&display=swap');
 /* page background */
 [data-testid="stAppViewContainer"]{
   background: radial-gradient(circle at 20% 10%, rgba(255,255,255,0.45), transparent 35%),
@@ -34,6 +36,16 @@ st.markdown(
 /* Force text color (fix mobile dark mode issue) */
 html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, div {
     color: #2b2b2b !important;
+}
+
+/* Headings font */
+.big-title, h1, h2, h3 {
+    font-family: 'Playfair Display', serif !important;
+}
+
+/* Body text font */
+body, p, div, span, .sub, .small {
+    font-family: 'Poppins', sans-serif !important;
 }
 
 /* Light themed buttons */
@@ -145,6 +157,8 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 # ----------------------------
 # BUTTONS
