@@ -167,38 +167,7 @@ if st.session_state.accepted:
         unsafe_allow_html=True,
     )
 
-    st.markdown(
-        """
-<div class="card">
-  <h3 style="margin-top:0;">Things that remind me of you 💗</h3>
-  <ul>
-    <li><b>Pink</b> everything 🎀</li>
-    <li><b>Sunflowers</b> 🌻</li>
-    <li>Fancy outfits + main character energy ✨</li>
-    <li>Beautiful cafés & restaurants ☕🍽️</li>
-    <li>Bali dreams and beach sunsets 🌊</li>
-    <li>Tiramisu dates (Baked by Nini’s) 🍰</li>
-  </ul>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
-    st.markdown(
-        """
-<div class="card">
-  <h3 style="margin-top:0;">Tonight’s plan (LDR edition) 📞💞</h3>
-  <ul>
-    <li>A proper long call, no distractions</li>
-    <li>One cute “virtual date” vibe</li>
-    <li>And a promise: next time we meet, we’ll do a real café + dessert date 😌</li>
-  </ul>
-  <div class="small">P.S. You’re stuck with me now 😭💖</div>
-</div>
-""",
-        unsafe_allow_html=True,
-    )
-
+   
     # Optional: photo section (drop images in a folder and uncomment)
     # st.markdown("<div class='card'><h3>Our Lookbook 📸</h3></div>", unsafe_allow_html=True)
     # st.image(["photos/1.jpg", "photos/2.jpg", "photos/3.jpg"], caption=["", "", ""], use_container_width=True)
