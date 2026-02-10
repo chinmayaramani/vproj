@@ -31,6 +31,11 @@ st.markdown(
 }
 [data-testid="stHeader"]{ background: rgba(0,0,0,0); }
 
+/* Force text color (fix mobile dark mode issue) */
+html, body, [class*="css"], .stMarkdown, p, h1, h2, h3, h4, h5, h6, span, div {
+    color: #2b2b2b !important;
+}
+
 .big-title { font-size: 44px; font-weight: 900; text-align: center; margin-top: 8px; }
 .sub { font-size: 16px; text-align: center; opacity: 0.95; margin-bottom: 14px; }
 
